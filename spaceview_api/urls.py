@@ -13,5 +13,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('questions/<int:question_id>/choices/', Choices_View.as_view({'get':'get_queryset', 'post':'create'}) , name='view-choices'),
     path('questions/<int:question_id>/choices/<int:choice_id>', Choices_View.as_view({'get':'get_queryset','put':'update', 'delete':'   '}) , name='view-choices-update'),
-    path('users/<int:user_id>/choices/',GetUserChoices.as_view(), name='user_choices')
+    path('users/<int:user_id>/choices/',GetUserChoices.as_view({'get':'get_queryset'}), name='user_choices')
 ]

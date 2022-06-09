@@ -77,8 +77,11 @@ class Choices_View(viewsets.ModelViewSet):
         choice.delete()
         return Response({'result':'Object Deleted'}, status=status.HTTP_200_OK)
 
-class GetUserChoices(APIView):
-    def get(self, request, user_id):
+class GetUserChoices(viewsets.ModelViewSet):
+    
+    serializer_class = serializers.ChoiceSerializer
+    def get_queryset(self, *args, **kwargs):
+        user_id = kwargs.get('user_id')
         choices = models.Options.objects.filter(user=user_id, selected=True)
         serializer = serializers.ChoiceSerializer(choices, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
